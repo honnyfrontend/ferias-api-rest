@@ -1,0 +1,15 @@
+# node_modules: dependências do Node.js
+node_modules/
+
+# .env: variáveis de ambiente (NUNCA suba sua string do MongoDB!)
+.env
+
+# arquivos de log
+*.log
+
+# arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# pastas do VSCode
+.vscode/
