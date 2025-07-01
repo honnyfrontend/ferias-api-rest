@@ -2,13 +2,15 @@ const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
+require('dotenv').config();
+
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
 
 // Conexão com MongoDB
-mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost:27017/usuariosdb', {
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/usuariosdb', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
