@@ -51,7 +51,7 @@
     </table>
   </div>
   <script>
-    const API_URL = "http://localhost:3000/usuarios";
+    const API_URL = "https://ferias-api-rest.onrender.com/usuarios";
     const form = document.getElementById('usuario-form');
     const nomeInput = document.getElementById('nome');
     const emailInput = document.getElementById('email');
@@ -71,7 +71,7 @@
       usuarios.forEach(usuario => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td>${usuario.id}</td>
+          <td>${usuario._id}</td>
           <td>${usuario.nome}</td>
           <td>${usuario.email}</td>
           <td class="actions">
@@ -81,7 +81,7 @@
         `;
         // Editar
         tr.querySelector('.edit-btn').onclick = () => {
-          editId = usuario.id;
+          editId = usuario._id;
           nomeInput.value = usuario.nome;
           emailInput.value = usuario.email;
           submitBtn.textContent = "Atualizar";
@@ -89,9 +89,9 @@
         // Excluir
         tr.querySelector('.delete-btn').onclick = async () => {
           if (confirm("Tem certeza que deseja excluir este usuário?")) {
-            await fetch(`${API_URL}/${usuario.id}`, { method: "DELETE" });
+            await fetch(`${API_URL}/${usuario._id}`, { method: "DELETE" });
             fetchUsuarios();
-            if (editId === usuario.id) {
+            if (editId === usuario._id) {
               editId = null;
               form.reset();
               submitBtn.textContent = "Adicionar";
