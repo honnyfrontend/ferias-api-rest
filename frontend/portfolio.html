@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <title>Upload de Foto</title>
@@ -9,6 +10,7 @@
             background: #f8f9fa;
             margin: 0;
         }
+
         .container {
             max-width: 700px;
             margin: 40px auto;
@@ -17,21 +19,26 @@
             border-radius: 8px;
             box-shadow: 0 2px 8px #0001;
         }
+
         h2 {
             text-align: center;
             margin-bottom: 24px;
         }
+
         form {
             margin-bottom: 24px;
         }
+
         input[type="file"] {
             margin-bottom: 12px;
         }
+
         .gallery {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
         }
+
         .gallery img {
             width: 160px;
             height: 120px;
@@ -41,6 +48,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h2>Upload de Foto</h2>
@@ -80,12 +88,16 @@
             }
         };
 
-        // Adiciona foto na galeria
         function addPhotoToGallery(url) {
+            // Se a URL não começa com http, adicione o domínio do backend
+            if (!url.startsWith('http')) {
+                url = 'https://ferias-api-rest.onrender.com' + url;
+            }
             const img = document.createElement('img');
             img.src = url;
             gallery.appendChild(img);
         }
     </script>
 </body>
+
 </html>
