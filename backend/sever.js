@@ -67,6 +67,7 @@ app.delete('/usuarios/:id', async (req, res) => {
   res.status(204).send();
 });
 
+
 app.get('/usuarios/:id/portfolio', async (req, res) => {
   const usuario = await Usuario.findById(req.params.id);
   res.json(usuario.portfolio || []);
