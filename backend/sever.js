@@ -46,6 +46,7 @@ app.post('/usuarios/:id/portfolio', upload.single('foto'), async (req, res) => {
   }
   const usuario = await Usuario.findById(req.params.id);
   if (!usuario) return res.status(404).json({ mensagem: 'Usuário não encontrado' });
+  if (!req.file) return res.status(400).json({ mensagem: 'Nenhuma foto enviada' });
   const fotoUrl = `/uploads/${req.file.filename}`;
   usuario.portfolio = usuario.portfolio || [];
   usuario.portfolio.push({ url: fotoUrl });
