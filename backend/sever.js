@@ -53,6 +53,9 @@ app.post('/usuarios/:id/portfolio', upload.single('foto'), async (req, res) => {
   res.json({ success: true });
 });
 
+
+
+
 // Listar todos os usuários
 app.get('/usuarios', async (req, res) => {
   const usuarios = await Usuario.find();
@@ -93,20 +96,6 @@ app.delete('/usuarios/:id', async (req, res) => {
   res.status(204).send();
 });
 
-
-app.get('/usuarios/:id/portfolio', async (req, res) => {
-  const usuario = await Usuario.findById(req.params.id);
-  res.json(usuario.portfolio || []);
-});
-
-app.post('/usuarios/:id/portfolio', upload.single('foto'), async (req, res) => {
-  const usuario = await Usuario.findById(req.params.id);
-  const fotoUrl = `/uploads/${req.file.filename}`;
-  usuario.portfolio = usuario.portfolio || [];
-  usuario.portfolio.push({ url: fotoUrl });
-  await usuario.save();
-  res.json({ success: true });
-});
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
