@@ -41,13 +41,11 @@ app.get('/usuarios/:id/portfolio', async (req, res) => {
 });
 
 
-// Upload de foto independente de usuário
 app.post('/upload', upload.single('foto'), async (req, res) => {
   if (!req.file) return res.status(400).json({ mensagem: 'Nenhuma foto enviada' });
   const fotoUrl = `/uploads/${req.file.filename}`;
   res.json({ url: fotoUrl });
 });
-
 
 // Listar todos os usuários
 app.get('/usuarios', async (req, res) => {
