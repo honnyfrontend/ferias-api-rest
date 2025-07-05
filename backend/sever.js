@@ -40,21 +40,13 @@ app.get('/usuarios/:id/portfolio', async (req, res) => {
   res.json(usuario.portfolio || []);
 });
 
-app.post('/usuarios/:id/portfolio', upload.single('foto'), async (req, res) => {
-  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-    return res.status(400).json({ mensagem: 'ID inválido' });
-  }
-  const usuario = await Usuario.findById(req.params.id);
-  if (!usuario) return res.status(404).json({ mensagem: 'Usuário não encontrado' });
+
+// Upload de foto independente de usuário
+app.post('/upload', upload.single('foto'), async (req, res) => {
   if (!req.file) return res.status(400).json({ mensagem: 'Nenhuma foto enviada' });
   const fotoUrl = `/uploads/${req.file.filename}`;
-  usuario.portfolio = usuario.portfolio || [];
-  usuario.portfolio.push({ url: fotoUrl });
-  await usuario.save();
-  res.json({ success: true });
+  res.json({ url: fotoUrl });
 });
-
-
 
 
 // Listar todos os usuários
