@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
-    <title>Portfólio do Usuário</title>
+    <title>Upload de Foto</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background: #f8f9fa;
             margin: 0;
         }
-
         .container {
             max-width: 700px;
             margin: 40px auto;
@@ -19,26 +17,21 @@
             border-radius: 8px;
             box-shadow: 0 2px 8px #0001;
         }
-
         h2 {
             text-align: center;
             margin-bottom: 24px;
         }
-
         form {
             margin-bottom: 24px;
         }
-
         input[type="file"] {
             margin-bottom: 12px;
         }
-
         .gallery {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
         }
-
         .gallery img {
             width: 160px;
             height: 120px;
@@ -48,10 +41,9 @@
         }
     </style>
 </head>
-
 <body>
     <div class="container">
-        <h2>Portfólio do Usuário</h2>
+        <h2>Upload de Foto</h2>
         <form id="upload-form">
             <input type="file" id="photo-input" accept="image/*" required>
             <button type="submit">Enviar Foto</button>
@@ -59,40 +51,12 @@
         <div class="gallery" id="gallery"></div>
     </div>
     <script>
-
-        const API_URL = "https://ferias-api-rest.onrender.com/usuarios";
-        const params = new URLSearchParams(window.location.search);
-        const usuarioId = params.get('usuarioId');
+        const API_URL = "https://ferias-api-rest.onrender.com/upload";
         const gallery = document.getElementById('gallery');
         const uploadForm = document.getElementById('upload-form');
         const photoInput = document.getElementById('photo-input');
 
-        // Buscar fotos do portfólio com tratamento de erro
-        async function fetchPortfolio() {
-            gallery.innerHTML = 'Carregando...';
-            try {
-                const res = await fetch(`${API_URL}/${usuarioId}/portfolio`);
-                if (!res.ok) {
-                    gallery.innerHTML = '<p>Usuário não encontrado ou erro ao carregar fotos.</p>';
-                    return;
-                }
-                const fotos = await res.json();
-                gallery.innerHTML = '';
-                if (!fotos.length) {
-                    gallery.innerHTML = '<p>Nenhuma foto enviada.</p>';
-                    return;
-                }
-                fotos.forEach(foto => {
-                    const img = document.createElement('img');
-                    img.src = foto.url;
-                    gallery.appendChild(img);
-                });
-            } catch (err) {
-                gallery.innerHTML = '<p>Erro ao carregar fotos.</p>';
-            }
-        }
-
-        // Upload de foto com tratamento de erro
+        // Upload de foto
         uploadForm.onsubmit = async (e) => {
             e.preventDefault();
             const file = photoInput.files[0];
@@ -100,7 +64,7 @@
             const formData = new FormData();
             formData.append('foto', file);
             try {
-                const res = await fetch(`${API_URL}/${usuarioId}/portfolio`, {
+                const res = await fetch(API_URL, {
                     method: 'POST',
                     body: formData
                 });
@@ -108,16 +72,20 @@
                     alert('Erro ao enviar foto.');
                     return;
                 }
+                const data = await res.json();
+                addPhotoToGallery(data.url);
                 photoInput.value = '';
-                fetchPortfolio();
             } catch (err) {
                 alert('Erro ao enviar foto.');
             }
         };
 
-        fetchPortfolio();
-
+        // Adiciona foto na galeria
+        function addPhotoToGallery(url) {
+            const img = document.createElement('img');
+            img.src = url;
+            gallery.appendChild(img);
+        }
     </script>
 </body>
-
 </html>
