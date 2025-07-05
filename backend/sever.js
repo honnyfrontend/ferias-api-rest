@@ -30,6 +30,29 @@ const UsuarioSchema = new mongoose.Schema({
 });
 const Usuario = mongoose.model('Usuario', UsuarioSchema);
 
+
+app.get('/usuarios/:id/portfolio', async (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({ mensagem: 'ID inválido' });
+  }
+  const usuario = await Usuario.findById(req.params.id);
+  if (!usuario) return res.status(404).json({ mensagem: 'Usuário não encontrado' });
+  res.json(usuario.portfolio || []);
+});
+
+app.post('/usuarios/:id/portfolio', upload.single('foto'), async (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({ mensagem: 'ID inválido' });
+  }
+  const usuario = await Usuario.findById(req.params.id);
+  if (!usuario) return res.status(404).json({ mensagem: 'Usuário não encontrado' });
+  const fotoUrl = `/uploads/${req.file.filename}`;
+  usuario.portfolio = usuario.portfolio || [];
+  usuario.portfolio.push({ url: fotoUrl });
+  await usuario.save();
+  res.json({ success: true });
+});
+
 // Listar todos os usuários
 app.get('/usuarios', async (req, res) => {
   const usuarios = await Usuario.find();
