@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Portfólio do Usuário</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f8f9fa; margin: 0; }
+    .container { max-width: 700px; margin: 40px auto; background: #fff; padding: 32px; border-radius: 8px; box-shadow: 0 2px 8px #0001; }
+    h2 { text-align: center; margin-bottom: 24px; }
+    form { margin-bottom: 24px; }
+    input[type="file"] { margin-bottom: 12px; }
+    .gallery { display: flex; flex-wrap: wrap; gap: 12px; }
+    .gallery img { width: 160px; height: 120px; object-fit: cover; border-radius: 6px; box-shadow: 0 1px 4px #0002; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Portfólio do Usuário</h2>
+    <form id="upload-form">
+      <input type="file" id="photo-input" accept="image/*" required>
+      <button type="submit">Enviar Foto</button>
+    </form>
+    <div class="gallery" id="gallery"></div>
+  </div>
+  <script>
+    const API_URL = "https://ferias-api-rest.onrender.com/usuarios";
+    const params = new URLSearchParams(window.location.search);
+    const usuarioId = params.get('usuarioId');
+    const gallery = document.getElementById('gallery');
+    const uploadForm = document.getElementById('upload-form');
+    const photoInput = document.getElementById('photo-input');
+
+    // Buscar fotos do portfólio
+    async function fetchPortfolio() {
+      gallery.innerHTML = 'Carregando...';
+      const res = await fetch(`${API_URL}/${usuarioId}/portfolio`);
+      const fotos = await res.json();
+      gallery.innerHTML = '';
+      if (!fotos.length) {
+        gallery.innerHTML = '<p>Nenhuma foto enviada.</p>';
+        return;
+      }
+      fotos.forEach(foto => {
+        const img = document.createElement('img');
+        img.src = foto.url;
+        gallery.appendChild(img);
+      });
+    }
+
+    // Upload de foto
+    uploadForm.onsubmit = async (e) => {
+      e.preventDefault();
+      const file = photoInput.files[0];
+      if (!file) return;
+      const formData = new FormData();
+      formData.append('foto', file);
+      await fetch(`${API_URL}/${usuarioId}/portfolio`, {
+        method: 'POST',
+        body: formData
+      });
+      photoInput.value = '';
+      fetchPortfolio();
+    };
+
+    fetchPortfolio();
+  </script>
+</body>
+</html>

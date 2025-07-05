@@ -2,6 +2,9 @@ const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+
 require('dotenv').config();
 
 const PORT = process.env.PORT || 3000;
@@ -19,6 +22,7 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/usuariosdb'
 const UsuarioSchema = new mongoose.Schema({
   nome: String,
   email: String,
+  portfolio: [{ url: String }],
 });
 const Usuario = mongoose.model('Usuario', UsuarioSchema);
 
@@ -60,6 +64,20 @@ app.delete('/usuarios/:id', async (req, res) => {
   const usuario = await Usuario.findByIdAndDelete(req.params.id);
   if (!usuario) return res.status(404).json({ mensagem: 'Usuário não encontrado' });
   res.status(204).send();
+});
+
+app.get('/usuarios/:id/portfolio', async (req, res) => {
+  const usuario = await Usuario.findById(req.params.id);
+  res.json(usuario.portfolio || []);
+});
+
+app.post('/usuarios/:id/portfolio', upload.single('foto'), async (req, res) => {
+  const usuario = await Usuario.findById(req.params.id);
+  const fotoUrl = `/uploads/${req.file.filename}`;
+  usuario.portfolio = usuario.portfolio || [];
+  usuario.portfolio.push({ url: fotoUrl });
+  await usuario.save();
+  res.json({ success: true });
 });
 
 app.listen(PORT, () => {
