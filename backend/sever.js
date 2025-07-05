@@ -5,7 +5,7 @@ const app = express();
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 app.use(cors({
-  origin: 'https://ferias-api-rest-1.onrender.com'
+  origin: 'https://ferias-api-rest-3.onrender.com'
 }));
 
 require('dotenv').config();
