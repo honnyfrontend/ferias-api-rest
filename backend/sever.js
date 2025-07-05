@@ -40,7 +40,7 @@ app.get('/usuarios/:id/portfolio', async (req, res) => {
   res.json(usuario.portfolio || []);
 });
 
-
+// algo
 app.post('/upload', upload.single('foto'), async (req, res) => {
   if (!req.file) return res.status(400).json({ mensagem: 'Nenhuma foto enviada' });
   const fotoUrl = `/uploads/${req.file.filename}`;
