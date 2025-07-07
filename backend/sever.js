@@ -3,9 +3,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 
-app.use(cors({
-  origin: 'https://ferias-api-rest-3.onrender.com'
-}));
 
 require('dotenv').config();
 
