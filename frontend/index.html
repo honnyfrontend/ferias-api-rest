@@ -264,7 +264,8 @@
     <div class="banner-text">
       <h1>MARIDOS DE ALUGUEL</h1>
       <p>Cadastre seu nome e contato para participar!</p>
-      <a href="https://cloudinary-app-2.onrender.com">Portifolio (trabalhos passados de cada um...)</a>
+      <a style="color: white; font-size: 30px;" href="https://cloudinary-app-2.onrender.com">Portifolio (trabalhos
+        passados de cada um...)CLIKE AQUI</a>
     </div>
   </header>
   <div class="container">
@@ -315,7 +316,6 @@
           <td class="actions">
             <button class="edit-btn">Editar</button>
             <button class="delete-btn">Excluir</button>
-            <button class="portfolio-btn">Portfólio</button>
           </td>
         `;
         // Editar
@@ -337,11 +337,11 @@
             }
           }
         };
-                
+
         tr.querySelector('.portfolio-btn').onclick = () => {
           window.open(`portfolio.html?usuarioId=${usuario._id}`, '_blank');
         };
-        
+
         tbody.appendChild(tr);
       });
     }
