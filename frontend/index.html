@@ -322,7 +322,6 @@
     <table class="users-table">
       <thead>
         <tr>
-          <th>ID</th>
           <th>Nome</th>
           <th>Descrição e contato</th>
           <th>Ações</th>
@@ -352,7 +351,7 @@
       if (usuarios.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="4" class="empty-message">
+            <td colspan="3" class="empty-message">
               Nenhum usuário cadastrado ainda. Seja o primeiro!
             </td>
           </tr>`;
@@ -362,7 +361,6 @@
       usuarios.forEach(usuario => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td>${usuario._id}</td>
           <td>${usuario.nome}</td>
           <td>${usuario.email}</td>
           <td class="action-cell">
