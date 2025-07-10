@@ -1,328 +1,311 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
-  <title>Maridos de Aluguel - Serviços Profissionais</title>
+  <title>Gerenciamento de Usuários</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --primary: #2a4365;
-      --secondary: #3182ce;
-      --accent: #ecc94b;
-      --dark: #1a202c;
-      --light: #f7fafc;
-      --success: #48bb78;
-      --danger: #e53e3e;
-      --gray: #e2e8f0;
-      --dark-gray: #4a5568;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--light);
-      color: var(--dark);
-      line-height: 1.6;
+      font-family: Arial, sans-serif;
+      background: #f8f9fa;
+      margin: 0;
     }
 
-    /* Banner Hero */
-    .hero {
-      position: relative;
-      height: 70vh;
-      min-height: 500px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                  url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
-      color: white;
-      text-align: center;
-      padding: 0 20px;
-      margin-bottom: 40px;
-    }
-
-    .hero-content {
-      max-width: 800px;
-      z-index: 2;
-      animation: fadeIn 1s ease-out;
-    }
-
-    .hero h1 {
-      font-size: 3.5rem;
-      margin-bottom: 20px;
-      font-weight: 700;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    }
-
-    .hero p {
-      font-size: 1.5rem;
-      margin-bottom: 30px;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-    }
-
-    /* Botões de Ação */
-    .action-buttons {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
+    .container {
+      max-width: 1500px;
       margin: 40px auto;
-      max-width: 800px;
-      padding: 0 20px;
-    }
-
-    .action-btn {
-      display: inline-block;
-      background-color: var(--primary);
-      color: white;
-      text-decoration: none;
-      font-size: 1.2rem;
-      font-weight: 600;
-      padding: 15px 40px;
-      border-radius: 50px;
-      transition: all 0.3s ease;
-      text-align: center;
-      width: 100%;
-      max-width: 500px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .action-btn:hover {
-      background-color: var(--secondary);
-      transform: translateY(-3px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    .action-btn.secondary {
-      background-color: var(--accent);
-      color: var(--dark);
-    }
-
-    .action-btn.secondary:hover {
-      background-color: #f6ad55;
-    }
-
-    /* Container Principal */
-    .main-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px 40px;
-    }
-
-    /* Formulário */
-    .form-container {
-      background-color: white;
-      border-radius: 10px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      margin-bottom: 40px;
-    }
-
-    .form-title {
-      text-align: center;
-      margin-bottom: 30px;
-      color: var(--primary);
-      font-size: 2rem;
-    }
-
-    .user-form {
-      display: grid;
-      grid-template-columns: 1fr 1fr auto;
-      gap: 15px;
-    }
-
-    .form-input {
-      padding: 12px 15px;
-      border: 2px solid var(--gray);
+      background: #fff;
+      padding: 32px 24px 24px 24px;
       border-radius: 8px;
-      font-size: 1rem;
-      transition: border-color 0.3s;
+      box-shadow: 0 2px 8px #0001;
     }
 
-    .form-input:focus {
-      outline: none;
-      border-color: var(--secondary);
+    h2 {
+      text-align: center;
+      margin-bottom: 24px;
     }
 
-    .submit-btn {
-      background-color: var(--primary);
-      color: white;
+    form {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    form input {
+      flex: 1 1 200px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    form button {
+      padding: 8px 24px;
       border: none;
-      border-radius: 8px;
-      padding: 0 25px;
-      font-size: 1rem;
-      font-weight: 600;
+      border-radius: 4px;
+      background: #007bff;
+      color: #fff;
       cursor: pointer;
-      transition: background-color 0.3s;
     }
 
-    .submit-btn:hover {
-      background-color: var(--secondary);
+    form button:hover {
+      background: #0056b3;
     }
 
-    /* Tabela */
-    .users-table {
+    table {
       width: 100%;
       border-collapse: collapse;
-      background-color: white;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      background: #fff;
     }
 
-    .users-table th {
-      background-color: var(--primary);
-      color: white;
-      padding: 15px;
+    th,
+    td {
+      padding: 10px 8px;
+      border: 1px solid #ddd;
       text-align: left;
     }
 
-    .users-table td {
-      padding: 12px 15px;
-      border-bottom: 1px solid var(--gray);
+    th {
+      background: #343a40;
+      color: #fff;
     }
 
-    .users-table tr:last-child td {
-      border-bottom: none;
+    tr:nth-child(even) {
+      background: #f2f2f2;
     }
 
-    .users-table tr:nth-child(even) {
-      background-color: #f8fafc;
-    }
-
-    .action-cell {
-      display: flex;
-      gap: 10px;
-    }
-
-    .edit-btn, .delete-btn {
-      padding: 8px 15px;
+    .actions button {
+      margin-right: 6px;
+      padding: 4px 12px;
       border: none;
-      border-radius: 6px;
-      font-weight: 600;
+      border-radius: 4px;
       cursor: pointer;
-      transition: all 0.3s;
     }
 
     .edit-btn {
-      background-color: var(--accent);
-      color: var(--dark);
+      background: #ffc107;
+      color: #212529;
     }
 
     .edit-btn:hover {
-      background-color: #f6ad55;
+      background: #e0a800;
     }
 
     .delete-btn {
-      background-color: var(--danger);
-      color: white;
+      background: #dc3545;
+      color: #fff;
     }
 
     .delete-btn:hover {
-      background-color: #c53030;
+      background: #b52a37;
     }
 
-    /* Responsividade */
-    @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 2.5rem;
-      }
-      
-      .hero p {
-        font-size: 1.2rem;
-      }
-      
-      .user-form {
-        grid-template-columns: 1fr;
-      }
-      
-      .users-table {
-        display: block;
-        overflow-x: auto;
-      }
-      
-      .action-buttons {
-        gap: 15px;
-      }
-      
-      .action-btn {
-        padding: 12px 25px;
-        font-size: 1rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .hero {
-        height: 60vh;
-      }
-      
-      .hero h1 {
-        font-size: 2rem;
-      }
-      
-      .hero p {
-        font-size: 1rem;
-      }
-      
-      .action-cell {
-        flex-direction: column;
-      }
-    }
-
-    /* Animações */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Mensagens */
-    .empty-message {
+    .ancora-button {
+      display: block;
       text-align: center;
-      padding: 20px;
-      color: var(--dark-gray);
-      font-style: italic;
+      margin: 20px auto;
+      background-color: black;
+      width: fit-content;
+      padding: 10px 20px;
+      border-radius: 4px;
+    }
+
+    .ancora {
+      color: white;
+      text-decoration: none;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 12px;
+      }
+
+      form {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      th,
+      td {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 8px;
+        max-width: 100vw;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      h2 {
+        font-size: 1.2rem;
+        margin-bottom: 16px;
+      }
+
+      form {
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+
+      form input,
+      form button {
+        width: 100%;
+        font-size: 1rem;
+        padding: 2px;
+      }
+
+      table,
+      thead,
+      tbody,
+      th,
+      td,
+      tr {
+        display: block;
+        width: 100%;
+      }
+
+      thead {
+        display: none;
+      }
+
+      tr {
+        margin-bottom: 16px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        background: #fff;
+        box-shadow: 0 1px 4px #0001;
+        padding: 8px 0;
+      }
+
+      td {
+        padding: 8px 12px;
+        text-align: left;
+        position: relative;
+        font-size: 1rem;
+        border: none;
+        border-bottom: 1px solid #eee;
+      }
+
+      td:last-child {
+        border-bottom: none;
+      }
+
+      .actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 8px;
+      }
+
+      .edit-btn,
+      .delete-btn {
+        width: 48%;
+        font-size: 1rem;
+        padding: 8px 0;
+      }
+    }
+
+    .banner {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+      margin-bottom: 24px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px #0002;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .banner-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.6);
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      background-color: black;
+    }
+
+    .banner-text {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+      text-align: center;
+      width: 100%;
+    }
+
+    .banner-text h1 {
+      font-size: 2.2rem;
+      margin: 0 0 8px 0;
+      font-weight: bold;
+      text-shadow: 0 2px 8px #0008;
+    }
+
+    .banner-text p {
+      font-size: 1.1rem;
+      margin: 0;
+      text-shadow: 0 1px 4px #0008;
+    }
+
+    @media (max-width: 600px) {
+      .banner {
+        height: 300px;
+        margin-bottom: 12px;
+        border-radius: 0;
+      }
+
+      .banner-text h1 {
+        font-size: 1.1rem;
+      }
+
+      .banner-text p {
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
 
 <body>
-  <!-- Banner Hero -->
-  <section class="hero">
-    <div class="hero-content">
+  <header class="banner">
+    <div alt="Banner" class="banner-img">
+    <div class="banner-text">
       <h1>MARIDOS DE ALUGUEL</h1>
-      <p>Serviços profissionais para sua casa com qualidade e garantia</p>
+      <p>Cadastre seu nome e contato para participar!</p>
     </div>
-  </section>
-
-  <!-- Botões de Ação -->
-  <div class="action-buttons">
-    <a href="https://cloudinary-app-2.onrender.com" class="action-btn">Ver Portfólio (Trabalhos Realizados)</a>
-    <a href="https://lado-cliente-1.onrender.com" class="action-btn secondary">Mostre o que precisa ser feito na sua casa</a>
-  </div>
-
-  <!-- Formulário e Tabela -->
-  <div class="main-container">
-    <div class="form-container">
-      <h2 class="form-title">DEIXE SEU NOME E CONTATO</h2>
-      <form id="usuario-form" class="user-form">
-        <input type="text" id="nome" class="form-input" placeholder="Seu nome" required>
-        <input type="text" id="email" class="form-input" placeholder="Descrição e WhatsApp" required>
-        <button type="submit" id="submit-btn" class="submit-btn">Adicionar</button>
-      </form>
     </div>
+  </header>
+  <button class="ancora-button">
+    <a class="ancora" href="https://cloudinary-app-2.onrender.com">Click Para Portifolio
+      (trabalhos
+      realizados)</a>
+  </button>
+  <br><br>
+  <button class="ancora-button">
+    <a class="ancora" href="https://lado-cliente-1.onrender.com">Click Para Mostrar o
+      que
+      precisa ser feito na sua casa</a>
+  </button>
 
-    <table class="users-table">
+  <div class="container">
+    <h2>DEIXE SEU NOME E CONTATO</h2>
+    <form id="usuario-form">
+      <input type="text" id="nome" placeholder="Nome" required>
+      <input type="text" id="email" placeholder="Descrição e WhatsApp" required>
+      <button type="submit" id="submit-btn">Adicionar</button>
+    </form>
+    <table>
       <thead>
         <tr>
-          <th>ID</th>
           <th>Nome</th>
           <th>Descrição e contato</th>
           <th>Ações</th>
@@ -333,7 +316,6 @@
       </tbody>
     </table>
   </div>
-
   <script>
     const API_URL = "https://ferias-api-rest-1.onrender.com/usuarios";
     const form = document.getElementById('usuario-form');
@@ -348,38 +330,27 @@
       const res = await fetch(API_URL);
       const usuarios = await res.json();
       tbody.innerHTML = '';
-      
       if (usuarios.length === 0) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="4" class="empty-message">
-              Nenhum usuário cadastrado ainda. Seja o primeiro!
-            </td>
-          </tr>`;
+        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center;">Nenhum usuário cadastrado.</td></tr>`;
         return;
       }
-      
       usuarios.forEach(usuario => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td>${usuario._id}</td>
           <td>${usuario.nome}</td>
           <td>${usuario.email}</td>
-          <td class="action-cell">
+          <td class="actions">
             <button class="edit-btn">Editar</button>
             <button class="delete-btn">Excluir</button>
           </td>
         `;
-        
         // Editar
         tr.querySelector('.edit-btn').onclick = () => {
           editId = usuario._id;
           nomeInput.value = usuario.nome;
           emailInput.value = usuario.email;
           submitBtn.textContent = "Atualizar";
-          window.scrollTo({ top: 0, behavior: 'smooth' });
         };
-        
         // Excluir
         tr.querySelector('.delete-btn').onclick = async () => {
           if (confirm("Tem certeza que deseja excluir este usuário?")) {
@@ -402,41 +373,32 @@
       e.preventDefault();
       const nome = nomeInput.value.trim();
       const email = emailInput.value.trim();
-      
-      if (!nome || !email) {
-        alert("Por favor, preencha todos os campos!");
-        return;
-      }
+      if (!nome || !email) return;
 
-      try {
-        if (editId) {
-          // Atualizar
-          await fetch(`${API_URL}/${editId}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ nome, email })
-          });
-          editId = null;
-          submitBtn.textContent = "Adicionar";
-        } else {
-          // Adicionar
-          await fetch(API_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ nome, email })
-          });
-        }
-        
-        form.reset();
-        fetchUsuarios();
-      } catch (error) {
-        console.error("Erro:", error);
-        alert("Ocorreu um erro. Por favor, tente novamente.");
+      if (editId) {
+        // Atualizar
+        await fetch(`${API_URL}/${editId}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nome, email })
+        });
+        editId = null;
+        submitBtn.textContent = "Adicionar";
+      } else {
+        // Adicionar
+        await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nome, email })
+        });
       }
+      form.reset();
+      fetchUsuarios();
     };
 
     // Inicializar
     fetchUsuarios();
   </script>
 </body>
+
 </html>
